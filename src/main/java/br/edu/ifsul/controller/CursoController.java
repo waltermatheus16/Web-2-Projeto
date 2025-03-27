@@ -59,7 +59,7 @@ public class CursoController {
     }
 
     public static Object buscarCursoPorId(Long id) {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'buscarCursoPorId'");
     }
 }

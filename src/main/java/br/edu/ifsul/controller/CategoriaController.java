@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +31,6 @@ public class CategoriaController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    // Método para exibir os detalhes de uma categoria específica
     @GetMapping("/{id}")
     public ModelAndView findById(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("categoria/detalhes");
@@ -41,7 +39,6 @@ public class CategoriaController {
         return mv;
     }
 
-    // Método para listar todas as categoria
     @GetMapping("/listar")
     public ModelAndView listar(@RequestParam(value = "page", defaultValue = "0") int page,
                                @RequestParam(value = "size", defaultValue = "10") int size) {
@@ -50,91 +47,71 @@ public class CategoriaController {
 
         try {
             Page<CategoriaDTO> pageResult = categoriaService.findAll(pageable);
-            mv.addObject("categoria", pageResult);
+            mv.addObject("categorias", pageResult);
         } catch (Exception e) {
-            mv.addObject("errorMessage", "Ocorreu um erro ao carregar as categoria.");
+            mv.addObject("errorMessage", "Ocorreu um erro ao carregar as categorias.");
             e.printStackTrace();
         }
         return mv;
     }
 
-    // Método para editar uma categoria
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("categoria/formulario");
-        // Se o id for 0, cria um novo DTO de categoria (para adicionar)
-        CategoriaDTO categoriaDTO = (id == 0) ? new CategoriaDTO() : categoriaService.findById(id);
+        CategoriaDTO categoriaDTO = id == null || id == 0 ? new CategoriaDTO() : categoriaService.findById(id);
         mv.addObject("categoria", categoriaDTO);
         return mv;
     }
 
-    // Método para processar a edição de uma categoria
     @PostMapping("/editar/{id}")
     public String editarCategoria(@PathVariable Long id, @ModelAttribute CategoriaDTO categoriaDTO) {
         try {
             Categoria categoria;
-
-            // Verifica se o id é 0 (criação de nova categoria)
             if (id == 0) {
-                categoria = new Categoria(); // Cria uma nova categoria
+                categoria = new Categoria();
             } else {
-                // Caso seja para editar uma categoria existente
                 categoria = categoriaRepository.findById(id)
                     .orElseThrow(() -> new EntityNotFoundException("Categoria não encontrada com ID: " + id));
             }
-
-            // Atualiza os dados da categoria com os valores do DTO
             categoria.setNome(categoriaDTO.getNome());
-
-            // Salva a categoria (nova ou editada)
             categoriaRepository.save(categoria);
-
-        } catch (EntityNotFoundException e) {
-            e.printStackTrace();
-            return "redirect:/categoria/listar"; // Redireciona para a lista em caso de erro
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/categoria/listar"; // Em caso de erro não esperado, redireciona para a lista
+            return "redirect:/categoria/listar"; // Redireciona corretamente
         }
-
-        return "redirect:/categoria/listar"; // Redireciona para a lista de categorias após salvar
+        return "redirect:/categoria/listar"; // Redireciona corretamente
     }
 
-    // Método para excluir uma categoria
-    @GetMapping("/excluir/{id}")
+
+    @PostMapping("/excluir/{id}")
     public String excluirCategoria(@PathVariable Long id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
-        if(categoria.isEmpty()) {
-            return "redirect:/categoria/listar";
+        if (categoria.isEmpty()) {
+            return "redirect:/categoria/listar"; // Caso a categoria não exista, redireciona para a lista
         }
         categoriaRepository.deleteById(id);
-        return "redirect:/categoria/listar";
+        return "redirect:/categoria/listar"; // Redireciona para a lista de categorias após excluir
     }
+    
 
-    // Método para adicionar uma nova categoria
+
     @GetMapping("/adicionar")
     public ModelAndView adicionarCategoria() {
         ModelAndView mv = new ModelAndView("categoria/adicionar");
-        mv.addObject("categoria", new CategoriaDTO()); // Passa um objeto vazio para o formulário
+        mv.addObject("categoria", new CategoriaDTO());
         return mv;
     }
 
-    // Método para processar a adição de uma nova categoria
     @PostMapping("/adicionar")
     public String adicionarCategoria(@ModelAttribute CategoriaDTO categoriaDTO) {
         try {
-            // Cria uma nova categoria
             Categoria categoria = new Categoria();
             categoria.setNome(categoriaDTO.getNome());
-
-            // Salva a nova categoria
             categoriaRepository.save(categoria);
-
         } catch (Exception e) {
             e.printStackTrace();
-            return "redirect:/categoria/listar"; // Em caso de erro, redireciona para a lista
+            return "redirect:/categoria/listar";
         }
-
-        return "redirect:/categoria/listar"; // Após adicionar, redireciona para a lista de categorias
+        return "redirect:/categoria/listar";
     }
 }

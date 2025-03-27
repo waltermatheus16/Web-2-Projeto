@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -62,7 +61,6 @@ public class ProfessorController {
     @GetMapping("/editar/{id}")
     public ModelAndView editar(@PathVariable Long id) {
         ModelAndView mv = new ModelAndView("professor/formulario");
-        // Se o id for 0, cria um novo DTO de professor (para adicionar)
         ProfessorDTO professorDTO = (id == 0) ? new ProfessorDTO() : professorService.findById(id);
         mv.addObject("professor", professorDTO);
         return mv;

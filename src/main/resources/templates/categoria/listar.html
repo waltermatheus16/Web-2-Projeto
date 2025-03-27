@@ -155,14 +155,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr th:each="categoria : ${categoria}">
+            <tr th:each="categoria : ${categorias.content}">
                 <td th:text="${categoria.id}"></td>
                 <td th:text="${categoria.nome}"></td>
                 <td>
                     <a th:href="@{/categoria/editar/{id}(id=${categoria.id})}" class="btn-acao btn-editar">Editar</a>
+                        
                     <form th:action="@{/categoria/excluir/{id}(id=${categoria.id})}" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?');">
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn-excluir">Excluir</button>
+                        <button type="submit" class="btn-acao btn-excluir">
+                            <span class="material-symbols-outlined">Excluir</span>
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -171,14 +174,14 @@
 
     <!-- Paginação -->
     <div>
-        <span> Página <span th:text="${categoria.number + 1}"></span> de <span th:text="${categoria.totalPages}"></span> </span>
-        <a th:if="${categoria.hasPrevious()}" th:href="@{/categoria/listar?page=0}">Primeira Página</a>
-        <a th:if="${categoria.hasPrevious()}" th:href="@{/categoria/listar?page=${categoria.number - 1}}">Página Anterior</a>
-        <a th:if="${categoria.hasNext()}" th:href="@{/categoria/listar?page=${categoria.number + 1}}">Próxima Página</a>
-        <a th:if="${categoria.hasNext()}" th:href="@{/categoria/listar?page=${categoria.totalPages - 1}}">Última Página</a>
+        <span> Página <span th:text="${categorias.number + 1}"></span> de <span th:text="${categorias.totalPages}"></span> </span>
+        <a th:if="${categorias.hasPrevious()}" th:href="@{/categoria/listar?page=0}">Primeira Página</a>
+        <a th:if="${categorias.hasPrevious()}" th:href="@{/categoria/listar?page=${categorias.number - 1}}">Página Anterior</a>
+        <a th:if="${categorias.hasNext()}" th:href="@{/categoria/listar?page=${categorias.number + 1}}">Próxima Página</a>
+        <a th:if="${categorias.hasNext()}" th:href="@{/categoria/listar?page=${categorias.totalPages - 1}}">Última Página</a>
     </div>
 
     <br>
-    <a href="/categoria/editar/0">Adicionar Nova Categoria</a>
+    <a href="/categoria/adicionar">Adicionar Nova Categoria</a>
 </body>
 </html>

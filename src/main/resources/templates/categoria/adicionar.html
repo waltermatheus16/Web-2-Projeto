@@ -1,31 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulário de Categoria</title>
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
+    <title>Adicionar Categoria</title>
+</head>
+<style>
+    body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background-color: #f4f7fb;
         color: #333;
         line-height: 1.6;
         padding: 20px;
-      }
+    }
 
-      h1 {
+    h1 {
         text-align: center;
         color: #2a3d66;
         margin-bottom: 30px;
-      }
+    }
 
-      form {
+    form {
         background-color: white;
         padding: 30px;
         border-radius: 8px;
@@ -33,20 +27,20 @@
         width: 100%;
         max-width: 500px;
         margin: 0 auto;
-      }
+    }
 
-      form div {
+    form div {
         margin-bottom: 20px;
-      }
+    }
 
-      label {
+    label {
         display: block;
         font-size: 16px;
         margin-bottom: 5px;
         color: #555;
-      }
+    }
 
-      input[type="text"] {
+    input[type="text"] {
         width: 100%;
         padding: 10px;
         font-size: 16px;
@@ -54,14 +48,14 @@
         border-radius: 6px;
         box-sizing: border-box;
         transition: border-color 0.3s ease;
-      }
+    }
 
-      input[type="text"]:focus {
+    input[type="text"]:focus {
         border-color: #007bff;
         outline: none;
-      }
+    }
 
-      button[type="submit"] {
+    button[type="submit"] {
         background-color: #007bff;
         color: white;
         font-size: 16px;
@@ -71,31 +65,33 @@
         cursor: pointer;
         transition: background-color 0.3s ease, transform 0.3s ease;
         width: 100%;
-      }
+    }
 
-      button[type="submit"]:hover {
+    button[type="submit"]:hover {
         background-color: #0056b3;
         transform: scale(1.05);
-      }
+    }
 
-      button[type="submit"]:active {
+    button[type="submit"]:active {
         transform: scale(1);
-      }
+    }
 
-      a {
-        display: inline-block;
-        text-decoration: none;
-        color: #007bff;
-        margin-top: 20px;
-        font-size: 16px;
-        text-align: center;
-      }
+    @media (max-width: 768px) {
+        form {
+            padding: 20px;
+            margin: 20px;
+        }
 
-      a:hover {
-        color: #0056b3;
-      }
+        button[type="submit"] {
+            padding: 10px 15px;
+        }
 
-      a.voltar {
+        a {
+            font-size: 14px;
+        }
+    }
+
+    a.voltar {
         display: inline-block;
         text-decoration: none;
         background-color: #007bff;  /* Azul padrão */
@@ -106,32 +102,36 @@
         text-align: center;
         transition: background-color 0.3s ease, transform 0.3s ease;
         margin-top: 20px;
-      }
+    }
 
-      a.voltar:hover {
+    a.voltar:hover {
         background-color: #0056b3;  /* Azul mais escuro ao passar o mouse */
         transform: scale(1.05);
-      }
+    }
 
-      a.voltar:active {
+    a.voltar:active {
         transform: scale(1);
-      }
-    </style>
-</head>
-<body>
-    <h1 th:text="${categoria.id == null ? 'Adicionar Nova Categoria' : 'Editar Categoria'}"></h1>
-    
-    <form th:action="@{/categoria/editar/{id}(id=${categoria.id})}" th:object="${categoria}" method="post">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" th:field="*{nome}" required>
-        </div>
-        
-        <div>
-            <button type="submit">Salvar</button>
-        </div>
-    </form>
+    }
 
-    <a href="/categoria/listar" class="voltar">Voltar para a lista de categorias</a>
+</style>
+<body>
+
+<h1>Adicionar Nova Categoria</h1>
+
+<!-- Formulário para adicionar uma nova categoria -->
+<form method="post" th:action="@{/categoria/adicionar}">
+    <div>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required />
+    </div>
+
+    <div>
+        <button type="submit">Salvar</button>
+    </div>
+</form>
+
+<br>
+<a href="/categoria/listar" class="voltar"> Voltar para a lista de categorias</a>
+
 </body>
 </html>
