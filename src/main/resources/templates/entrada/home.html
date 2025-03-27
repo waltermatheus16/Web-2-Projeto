@@ -28,14 +28,12 @@
         }
 
         main {
-        padding: 40px 20px;
-        display: flex;
-        justify-content: center; /* Centraliza as seções horizontalmente */
-    
-        flex-wrap: wrap; /* Permite que as seções quebrem para a próxima linha quando necessário */
-        gap: 20px;
-        height: 50px;
-}
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center; /* Centraliza as seções horizontalmente */
+            flex-wrap: wrap; /* Permite que as seções quebrem para a próxima linha quando necessário */
+            gap: 20px;
+        }
 
         section {
             background-color: white;
@@ -99,23 +97,20 @@
             <h2>Professores</h2>
             <p>Gerencie os professores registrados no sistema.</p>
             <a href="/professor/listar">Ver Professores</a>
-            <a href="/professor/editar/0">Adicionar Novo Professor</a>
         </section>
 
         <!-- Seção de Categorias -->
         <section>
             <h2>Categorias</h2>
             <p>Gerencie as categorias de cursos disponíveis no sistema.</p>
-            <a href="/categoria">Ver Categorias</a>
-            <a href="/categoria/editar/0">Adicionar Nova Categoria</a>
+            <a href="/categoria/listar">Ver Categorias</a>
         </section>
 
         <!-- Seção de Cursos -->
         <section>
             <h2>Cursos</h2>
             <p>Gerencie os cursos disponíveis no sistema.</p>
-            <a href="/curso">Ver Cursos</a>
-            <a href="/curso/editar/0">Adicionar Novo Curso</a>
+            <a href="/curso/listar">Ver Cursos</a>
         </section>
     </main>
 

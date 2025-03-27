@@ -84,14 +84,14 @@
 
         div a {
             font-size: 16px;
-            background-color: #28a745;
+            background-color: #007bff;
             padding: 8px 16px;
             border-radius: 5px;
             transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
         div a:hover {
-            background-color: #218838;
+            background-color: #0056b3;
             transform: scale(1.05);
         }
 
@@ -125,6 +125,15 @@
         .btn-excluir:focus {
             outline: none;
             box-shadow: 0 0 3px 2px #dc3545;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .buttons-container a {
+            margin-right: 0;
         }
 
         /* Responsividade */
@@ -181,7 +190,12 @@
         <a th:if="${categorias.hasNext()}" th:href="@{/categoria/listar?page=${categorias.totalPages - 1}}">Última Página</a>
     </div>
 
-    <br>
-    <a href="/categoria/adicionar">Adicionar Nova Categoria</a>
+    <div class="buttons-container">
+        <!-- Link para adicionar um novo professor -->
+        <a href="/professor/adicionar">Adicionar Novo Professor</a>
+
+       
+        <a href="/entrada/home" style="background-color: #6c757d;">Voltar para a Tela Inicial</a>
+    </div>
 </body>
 </html>
