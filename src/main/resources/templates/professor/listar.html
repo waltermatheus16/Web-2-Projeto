@@ -175,10 +175,12 @@
                     <a th:href="@{/professor/editar/{id}(id=${professor.id})}" class="btn-acao btn-editar">Editar</a>
 
                     <!-- Formulário para excluir o professor -->
+                    <!-- Formulário para excluir o professor -->
                     <form th:action="@{/professor/excluir/{id}(id=${professor.id})}" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir este professor?');">
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn-acao btn-excluir">
                             <span class="material-symbols-outlined">Excluir</span>
+
                         </button>
                     </form>
                 </td>

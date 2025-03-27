@@ -101,16 +101,16 @@ public class ProfessorController {
     }
 
 
-    @GetMapping("/excluir/{id}")
+    @PostMapping("/excluir/{id}")
     public String excluirProfessor(@PathVariable Long id) {
-        
-        Optional<Professor> professor = professorRepository.findById(id);
-        if(professor.isEmpty()){
-
-            return "redirect:professor/listar";
+        Optional<Professor> professor = professorRepository.findById(id); // Usando professorRepository
+        if (professor.isEmpty()) {
+            return "redirect:/professor/listar"; // Caso o professor não exista, redireciona para a lista de professores
         }
-        professorRepository.deleteById(id);
-        return "redirect:../../professor/listar";
+        
+        professorRepository.deleteById(id); // Exclui o professor com o id fornecido
+        
+        return "redirect:/professor/listar"; // Redireciona para a lista de professores após excluir
     }
 
 
