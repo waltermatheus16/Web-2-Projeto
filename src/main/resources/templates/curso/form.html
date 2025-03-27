@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Curso</title>
+</head>
+<body>
+    <h1 th:text="${curso.id == null ? 'Adicionar Novo Curso' : 'Editar Curso'}"></h1>
+    <form th:action="@{/cursos/salvar}" th:object="${curso}" method="post" enctype="multipart/form-data">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" th:field="*{nome}" required><br><br>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" th:field="*{descricao}" required></textarea><br><br>
+
+        <label for="dataInicio">Data de Início:</label>
+        <input type="date" id="dataInicio" th:field="*{dataInicio}" required><br><br>
+
+        <label for="dataFinal">Data de Término:</label>
+        <input type="date" id="dataFinal" th:field="*{dataFinal}" required><br><br>
+
+        <label for="imagem">Imagem:</label>
+        <input type="file" id="imagem" th:field="*{imagem}" accept="image/*"><br><br>
+
+        <label for="categoria">Categoria:</label>
+        <select id="categoria" th:field="*{categoria}" required>
+            <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}"></option>
+        </select><br><br>
+
+        <label for="professor">Professor:</label>
+        <select id="professor" th:field="*{professor}" required>
+            <option th:each="professor : ${professores}" th:value="${professor.id}" th:text="${professor.nome}"></option>
+        </select><br><br>
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>

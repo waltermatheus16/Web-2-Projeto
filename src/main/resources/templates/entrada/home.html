@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Sistema de Cadastro de Cursos</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2a3d66;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        main {
+        padding: 40px 20px;
+        display: flex;
+        justify-content: center; /* Centraliza as seções horizontalmente */
+    
+        flex-wrap: wrap; /* Permite que as seções quebrem para a próxima linha quando necessário */
+        gap: 20px;
+        height: 50px;
+}
+
+        section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%; /* Garante que as seções tenham uma largura responsiva */
+            max-width: 320px; /* Limita a largura máxima das seções */
+        }
+
+        section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2a3d66;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-bottom: 15px; /* Espaço entre os links */
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        a:active {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bem-vindo ao Sistema de Cadastro de Cursos</h1>
+    </header>
+
+    <main>
+        <!-- Seção de Professores -->
+        <section>
+            <h2>Professores</h2>
+            <p>Gerencie os professores registrados no sistema.</p>
+            <a href="/professor/listar">Ver Professores</a>
+            <a href="/professor/editar/0">Adicionar Novo Professor</a>
+        </section>
+
+        <!-- Seção de Categorias -->
+        <section>
+            <h2>Categorias</h2>
+            <p>Gerencie as categorias de cursos disponíveis no sistema.</p>
+            <a href="/categoria">Ver Categorias</a>
+            <a href="/categoria/editar/0">Adicionar Nova Categoria</a>
+        </section>
+
+        <!-- Seção de Cursos -->
+        <section>
+            <h2>Cursos</h2>
+            <p>Gerencie os cursos disponíveis no sistema.</p>
+            <a href="/curso">Ver Cursos</a>
+            <a href="/curso/editar/0">Adicionar Novo Curso</a>
+        </section>
+    </main>
+
+</body>
+</html>

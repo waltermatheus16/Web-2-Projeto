@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cursos da Categoria</title>
+</head>
+<body>
+    <h1 th:text="'Cursos de ' + ${categoria.nome}"></h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Professor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="curso : ${cursos}">
+                <td th:text="${curso.id}"></td>
+                <td th:text="${curso.nome}"></td>
+                <td th:text="${curso.professor.nome}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

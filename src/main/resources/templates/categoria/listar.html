@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Categorias</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fb;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2a3d66;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2a3d66;
+            color: white;
+            font-size: 18px;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        a:active {
+            transform: scale(1);
+        }
+
+        a:focus {
+            outline: none;
+            box-shadow: 0 0 3px 2px #007bff;
+        }
+
+        /* Estilo para a navegação de página */
+        div {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        div a {
+            font-size: 16px;
+            background-color: #28a745;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        div a:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        div span {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .btn-excluir {
+            text-decoration: none;
+            color: white;
+            background-color: #dc3545; /* Vermelho padrão Bootstrap */
+            padding: 13px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .btn-excluir:hover {
+            background-color: #c82333; /* Tom mais escuro no hover */
+            transform: scale(1.05);
+        }
+
+        .btn-excluir:active {
+            transform: scale(1);
+        }
+
+        .btn-excluir:focus {
+            outline: none;
+            box-shadow: 0 0 3px 2px #dc3545;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            a {
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Categorias</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="categoria : ${categoria}">
+                <td th:text="${categoria.id}"></td>
+                <td th:text="${categoria.nome}"></td>
+                <td>
+                    <a th:href="@{/categoria/editar/{id}(id=${categoria.id})}" class="btn-acao btn-editar">Editar</a>
+                    <form th:action="@{/categoria/excluir/{id}(id=${categoria.id})}" method="post" style="display:inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?');">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn-excluir">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Paginação -->
+    <div>
+        <span> Página <span th:text="${categoria.number + 1}"></span> de <span th:text="${categoria.totalPages}"></span> </span>
+        <a th:if="${categoria.hasPrevious()}" th:href="@{/categoria/listar?page=0}">Primeira Página</a>
+        <a th:if="${categoria.hasPrevious()}" th:href="@{/categoria/listar?page=${categoria.number - 1}}">Página Anterior</a>
+        <a th:if="${categoria.hasNext()}" th:href="@{/categoria/listar?page=${categoria.number + 1}}">Próxima Página</a>
+        <a th:if="${categoria.hasNext()}" th:href="@{/categoria/listar?page=${categoria.totalPages - 1}}">Última Página</a>
+    </div>
+
+    <br>
+    <a href="/categoria/editar/0">Adicionar Nova Categoria</a>
+</body>
+</html>
